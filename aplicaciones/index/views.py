@@ -171,3 +171,15 @@ class EmpresaView(base.View):
         :return: retorna un html de la pagina principal
         """
         return render_to_response("index/empresa.html", {"mensaje": ""},context_instance=RequestContext(request))
+
+
+class UsuarioView(base.View):
+
+    def get(self, request, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: retorna un html de la pagina principal
+        """
+        return render_to_response("index/usuario.html", {"mensaje": ""},context_instance=RequestContext(request))
