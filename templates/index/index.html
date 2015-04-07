@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8">
+    <title>BolsaDeEmpleo</title>
+    <link href="/static/css/index.css" rel="stylesheet">
+
+</head>
+
+<body class="body" background="/static/fondo1.jpg">
+<div>
+    <table1>
+        <tr>
+            <td><p align="center" class="p1">Bolsa De Empleo</p>
+
+                <div class="container">
+                    <section id="content">
+                        <form method="post" action="/ingresar/">
+                            {% csrf_token %}
+                            <h1>Identificarme</h1>
+                            <div>
+                                {{ mensaje }}
+                                <input type="text" placeholder="Nombre de usuario" name="username" required="" id="username" />
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Contraseña" name="password" required="" id="password" />
+                            </div>
+                            <div>
+                                <input type="submit"  value="Entrar" />
+                                <a href="/contrasena">Olvide mi contraseña</a>
+                                <a href="/registrar">Registrarme</a>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </td>
+    </table1>
+
+    <br>
+</div>
+<div id ="pie">
+    <p align="center"> Copyright ©2015 by *********. All rights reserved</p>
+</div>
+</body>
+</html>
