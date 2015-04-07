@@ -110,6 +110,6 @@ EMAIL_HOST_PASSWORD='glklibvtrasthida'
 
 EMAIL_PORT = 587
 
-
+HOST = "http://localhost:8000"
 
 

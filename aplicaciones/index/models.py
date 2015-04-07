@@ -2,6 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User, UserManager
 
 # Create your models here.
+
+
+class CodigoDeCambio(models.Model):
+    id = models.AutoField(primary_key=True)
+    codigo = models.CharField(max_length=60, null=True, db_column='codigo')
+    login_id = models.ForeignKey('Login', db_column='login_id')
+
+    class Meta:
+
+        db_table = 'codigo_de_cambio'
+
 class Login(User):
     id_user = models.ForeignKey('Cuentas', db_column='id_user', null=True, blank=True)
     contrase_a = models.CharField(db_column='contrasena', max_length=80)  # Field renamed to remove unsuitable characters.

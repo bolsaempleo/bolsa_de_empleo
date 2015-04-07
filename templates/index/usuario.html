@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8">
+    <title>BolsaDeEmpleo</title>
+    <link href="/static/css/usuario.css" rel="stylesheet">
+
+</head>
+
+<body class="body" background="/static/fondo1.jpg">
+<div>
+    <table1>
+        <tr>
+            <td><p align="center" class="p1">Bolsa De Empleo</p>
+
+                <div class="container">
+                    <section id="content">
+                        <section id="content">
+                            <form  method="post" action="/usuario">
+                                {% csrf_token %}
+                                <h1 align="center">Iniciar Sesión Cómo</h1>
+                                <div>
+                                    <input type="radio" name="empresa" value="empresa"> Empresa
+                                    <br>
+                                    <input type="radio" name="ciudadano" value="ciudadano"> Ciudadano
+                                    <br>
+                                    <input type="radio" name="funcionario" value="funcionario"> Funcionario
+                                    <br>
+                                    <input type="radio" name="admon" value="admon"> Administrador
+                                    <br>
+                                </div>
+                                <div align="center">
+                                    <input type="submit"  value="Ingresar" />
+                                </div>
+                            </form>
+                        </section>
+
+                    </section>
+
+                </div>
+            </td>
+    </table1>
+
+    <br>
+</div>
+<div id ="pie">
+    <p align="center"> Copyright ©2015 by *********. All rights reserved</p>
+</div>
+</body>
+</html>

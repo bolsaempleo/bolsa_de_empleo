@@ -1715,6 +1715,25 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
+    <table name="codigo_de_cambio" schema="public" catalog="bolsa_de_empleo" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnY29kaWdvX2RlX2NhbWJpb19pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="codigo" sqlType="varchar" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="login_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="codigo_de_cambio_pkey" columns="id"/>
+      <foreign-key name="codigo_de_cambio_login_id_fkey" columns="login_id" ref-table="login" ref-schema="public" ref-catalog="" ref-columns="user_ptr_id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="codigo_de_cambio_id_seq" schema="public" catalog="bolsa_de_empleo" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
     <table name="cuentas" schema="public" catalog="bolsa_de_empleo" type="TABLE">
       <column name="id_user" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnY3VlbnRhc19pZF91c2VyX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="nombreusuario" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
@@ -1884,6 +1903,7 @@
       <primary-key name="login_pkey" columns="user_ptr_id"/>
       <foreign-key name="login_user_ptr_id_fkey" columns="user_ptr_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="login_id_user_fkey" columns="id_user" ref-table="cuentas" ref-schema="public" ref-catalog="" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="codigo_de_cambio_login_id_fkey" table="codigo_de_cambio" schema="public" catalog="bolsa_de_empleo" columns="login_id"/>
       <index name="unique_user_ptr_id" unique="true" columns="user_ptr_id"/>
     </table>
     <table name="login_id_seq" schema="public" catalog="bolsa_de_empleo" type="SEQUENCE">

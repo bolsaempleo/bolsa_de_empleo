@@ -173,6 +173,7 @@
             width: 80%;
         }
         #content form input[type="text"]:focus,
+        #content form input[type="radio"]:focus,
         #content form input[type="email"]:focus,
         #content form input[type="password"]:focus {
             -webkit-box-shadow: 0 0 2px #ed1c24 inset;
@@ -185,6 +186,7 @@
             outline: none;
         }
         #username { background-position: 10px 10px !important }
+        #radio { background-position: 10px 10px !important }
         #password { background-position: 10px -53px !important }
         #email { background-position: 10px -53px !important }
         #content form input[type="submit"] {
@@ -360,7 +362,14 @@
         }
         /*oculto los inputs para que solo se vean las etiquetas o label*/
         .tab input[type=radio] {
-            display: none;
+            display:none;
+        }
+
+        .malditos input[type=radio]{
+            display: inherit;
+        }
+        .radios input[type=radio]{
+            display: inherit;
         }
         .content {
             position: absolute;
@@ -515,22 +524,20 @@
                                                 <br>
                                                 <p align="left" for="name">Naturaleza</p>
                                                 <br>
-
-                                                <form>
-                                                    <input type="checkbox" name="privada" value="Privada"> Privada
-                                                    <input type="checkbox" name="publica" value="Publica"> Pública
-                                                    <input type="checkbox" name="mixta" value="Mixta"> Mixta
+                                                <form class="radios">
+                                                    <input type="radio" name="naturaleza" value="Privada"> Privada
+                                                    <input type="radio" name="naturaleza" value="Publica"> Pública
+                                                    <input type="radio" name="naturaleza" value="Mixta"> Mixta
 
                                                 </form>
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Jerarquía</p>
                                                 <br>
-                                                <form align="left">
-                                                    <input type="checkbox" name="principal" value="Principal"> Principal
+                                                <form class="malditos" align="left">
+                                                    <input type="radio" name="jerarquia" value="Principal"> Principal
                                                     <br>
-                                                    <input  type="checkbox" name="sucursal" value="Sucursal"> Sucursal
-
+                                                    <input  type="radio" name="jerarquia" value="Sucursal"> Sucursal
                                                 </form>
                                                 <br>
                                                 <br>

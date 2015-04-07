@@ -5,6 +5,19 @@ from models import *
 from django.contrib.auth import login,logout,authenticate
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.mail import EmailMultiAlternatives
+import hashlib
+from bolsa_de_empleo.settings import HOST
+
+
+def generar_codigo(usuario):
+    """
+    :param usuario:
+    :return:
+    """
+    manejador = hashlib.md5()
+    manejador.update(usuario.nombreusuario)
+    mensaje = manejador.hexdigest()
+    return mensaje
 
 
 # Create your views here.
@@ -37,12 +50,7 @@ class IngresarView(base.View):
         if usuario.is_authenticated():
             loginELement = Login.objects.get(pk=usuario.id)
             cuenta = loginELement.id_user
-            return render_to_response("index/ingresar.html",
-                                      {
-                                          "mensaje": "",
-                                          "cuenta": cuenta
-                                      },
-                                      context_instance=RequestContext(request))
+            return HttpResponseRedirect('/usuario')
         else:
             return render_to_response("index/ingresar.html",
                                       {"mensaje": ""},
@@ -63,16 +71,11 @@ class IngresarView(base.View):
         usuario = authenticate(username = username, password = password)
         print type(usuario)
         if usuario is not None and usuario.is_active:
-            login(request,usuario)
+            login(request, usuario)
             print usuario.id
             loginELement = Login.objects.get(pk=usuario.id)
             cuenta = loginELement.id_user
-            return render(request,
-                          "index/ingresar.html",
-                          {
-                              "mensaje": "",
-                              "cuenta": cuenta
-                          })
+            return HttpResponseRedirect('/usuario')
         else:
             return render_to_response(request,
                                       "index/index.html",
@@ -106,9 +109,9 @@ class RegistroView(base.View):
         """
         datos = request.POST
         print datos
-        cuenta = Cuentas(nombreusuario= datos['documento'], contrase_a =datos['password'],
+        cuenta = Cuentas(nombreusuario=datos['documento'], contrase_a =datos['password'],
                          e_mail=datos['correo_electronico'], fechanacimiento= datos['fecha_nacimiento'],
-                         nombreyapellido= datos['nombre_completo'], estado="en espera")
+                         nombreyapellido=datos['nombre_completo'], estado="en espera")
         cuenta.save()
         login = Login.objects.create_user(username=datos['documento'],password=datos['password'])
         login.contrase_a = login.password
@@ -118,7 +121,6 @@ class RegistroView(base.View):
         return render_to_response("index/registrar.html",
                                   {"mensaje": "se ha creado  la cuenta correctamente, porfavor espere a que sea aceptada"},
                                   context_instance=RequestContext(request))
-
 
 
 class ContrasenaView(base.View):
@@ -140,14 +142,23 @@ class ContrasenaView(base.View):
         :return: retorna un html de la pagina principal
         """
         a = request.POST
-        contenido = "este es un mensaje enviado desde django"
-        mensaje = EmailMultiAlternatives("Correo, de password olvidado",
+        login_element = Login.objects.get(email=a['username'])
+        usuario = login_element.id_user
+        codigo = generar_codigo(usuario)
+        codigo_cambio = CodigoDeCambio.objects.get_or_create(login_id = login_element)[0]
+        codigo_cambio.codigo = codigo
+        codigo_cambio.save()
+        contenido = "Hemos recibido una solicitud de recuperacion de clave, porfavor<br>" \
+                    "accede al siguiente link: <a href='"+HOST+"/recuperar/"+codigo+"'>Recuperar clave.</a>"
+        print contenido
+        mensaje = EmailMultiAlternatives("Correo de clave olvidado",
                                          contenido,
                                          "notificaciones.bolsadeempleo@gmail.com",
                                          [a['username']])
-        mensaje.attach_alternative(contenido,"text/html")
+        mensaje.attach_alternative(contenido, "text/html")
         mensaje.send()
-        return render_to_response("index/contrasena.html", {"mensaje": ""}, context_instance=RequestContext(request))
+        return render_to_response("index/contrasena.html", {"mensaje": "Se ah enviado un mensaje al correo suministado"},
+                                  context_instance=RequestContext(request))
 
 class AdmonView(base.View):
 
@@ -182,4 +193,72 @@ class UsuarioView(base.View):
         :param kwargs:
         :return: retorna un html de la pagina principal
         """
-        return render_to_response("index/usuario.html", {"mensaje": ""},context_instance=RequestContext(request))
+        return render_to_response("index/usuario.html", {"mensaje": ""}, context_instance=RequestContext(request))
+
+    def post(self, request, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: retorna un html de la pagina principal
+        """
+        datos = request.POST
+        print datos
+        if datos['empresa']:
+            return  HttpResponseRedirect('/empresa')
+        elif datos['ciudadano']:
+            return  HttpResponseRedirect('/ciudadano')
+        elif datos['funcionario']:
+            return  HttpResponseRedirect('/empresa')
+        elif datos['admon']:
+            return  HttpResponseRedirect('/admon')
+        else:
+            return HttpResponseRedirect('/')
+
+
+
+
+
+
+class RecuperarView(base.View):
+
+    def get(self, request, clave=None, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: retorna un html de la pagina principal
+        """
+        print("clave")
+        print(clave)
+        return render_to_response("index/recuperar.html", {"mensaje": ""}, context_instance=RequestContext(request))
+
+    def post(self, request, clave=None, *args, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: retorna un html de la pagina principal
+        """
+        datos = request.POST
+        mensaje = None
+        error = None
+        password_1 = datos['password_1']
+        password_2 = datos['password_2']
+        if password_1 != password_2:
+            error = True
+            mensaje = "Las dos claves son distintas porfavor escriba dos claves iguales"
+        else:
+            codigo_dcambio = CodigoDeCambio.objects.get(codigo=clave)
+            login_element = codigo_dcambio.login_id
+            login_element.set_password(password_1)
+            login_element.save()
+            contenido = "Se ha cambiado tu clave con exito"
+            mensaje = EmailMultiAlternatives("Clave cambiada",
+                                             contenido,
+                                             "notificaciones.bolsadeempleo@gmail.com",
+                                             [login_element.email])
+            mensaje.attach_alternative(contenido, "text/html")
+            mensaje.send()
+            mensaje = "Se ha cambiado laa clave con exito"
+        return render_to_response("index/recuperar.html", {"mensaje": mensaje, "error": error}, context_instance=RequestContext(request))

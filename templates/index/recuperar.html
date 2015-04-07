@@ -2,7 +2,6 @@
 <html>
 <head>
 
-    <link rel="stylesheet" type="text/css" href="style.css" />
     <meta charset="UTF-8">
     <title>BolsaDeEmpleo</title>
 
@@ -318,7 +317,7 @@
 
                 <div class="container">
                     <section id="content">
-                        <form action="/contrasena" METHOD="post">
+                        <form action="" METHOD="post">
                             {% csrf_token %}
                             <h1>Recuperar Contraseña</h1>
                             {% if mensaje %}
@@ -327,14 +326,22 @@
                             {% else %}
                                 <br>
                                 <br>
-                                <p> Ingrese el correo electrónico vinculado a su cuenta para enviarle su contraseña.</p>
+                                <p> Ingresar Nueva Contraseña</p>
                                 <br>
                                 <br>
-                                <div>
-                                    <input type="email" name="username" placeholder="Email" required="true" id="username" />
+                                 <div>
+                                <input type="password" placeholder="Contraseña" name="password_1" required="" id="password" />
                                 </div>
+                                <br>
+                                <p>Confirmar Contraseña</p>
+                                <br>
+                                <br>
+                                 <div>
+                                <input type="password" placeholder="Contraseña" name="password_2" required="" id="password" />
+                                </div>
+                                <br>
                                 <div>
-                                    <input type="submit" value="Enviar" />
+                                    <input type="submit" value="Cambiar" />
                                 </div>
                             {% endif %}
                         </form>

@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from aplicaciones.index.views import IndexView, RegistroView, ContrasenaView, IngresarView, EmpresaView, AdmonView
+from aplicaciones.index.views import IndexView, RegistroView, ContrasenaView, IngresarView, EmpresaView, AdmonView, UsuarioView, RecuperarView
 
 
 
@@ -17,7 +17,8 @@ urlpatterns = patterns('',
     url(r'^contrasena/?$', ContrasenaView.as_view(), name="contrasena_url"),
     url(r'^empresa/?$', EmpresaView.as_view(), name="empresa_url"),
     url(r'^admon/?$', AdmonView.as_view(), name="admon_url"),
-
+    url(r'^usuario/?$', UsuarioView.as_view(), name="usuario_url"),
+    url(r'^recuperar/(?P<clave>(.)*)/?$', RecuperarView.as_view(), name="recuperar_url"),
 )
 
 
