@@ -365,12 +365,10 @@
             display:none;
         }
 
-        .malditos input[type=radio]{
-            display: inherit;
-        }
         .radios input[type=radio]{
             display: inherit;
         }
+
         .content {
             position: absolute;
             top: 28px;
@@ -522,22 +520,28 @@
                                                 </label2>
                                                 <br>
                                                 <br>
-                                                <p align="left" for="name">Naturaleza</p>
+                                                <p align="left" for="name"></p>
                                                 <br>
                                                 <form class="radios">
-                                                    <input type="radio" name="naturaleza" value="Privada"> Privada
-                                                    <input type="radio" name="naturaleza" value="Publica"> Pública
-                                                    <input type="radio" name="naturaleza" value="Mixta"> Mixta
-
                                                 </form>
                                                 <br>
                                                 <br>
+                                                <p align="left" for="name">Naturaleza</p>
+                                                <br>
+                                                <form class="radios">
+                                                    <input type="radio" name="naturaleza" value="privada">Privad
+                                                    <input  type="radio" name="naturaleza" value="publica">Pública
+                                                    <input  type="radio" name="naturaleza" value="mixta">Mixta
+                                                </form>
+                                                <br>
+                                                 <br>
+                                                <br>
                                                 <p align="left" for="name">Jerarquía</p>
                                                 <br>
-                                                <form class="malditos" align="left">
-                                                    <input type="radio" name="jerarquia" value="Principal"> Principal
+                                                <form class="radios">
+                                                    <input type="radio" name="jerarquia" value="Principal">Principal
                                                     <br>
-                                                    <input  type="radio" name="jerarquia" value="Sucursal"> Sucursal
+                                                    <input  type="radio" name="jerarquia" value="Sucursal">Sucursal
                                                 </form>
                                                 <br>
                                                 <br>

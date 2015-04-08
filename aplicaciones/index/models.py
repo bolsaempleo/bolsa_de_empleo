@@ -75,7 +75,7 @@ class Infoempresa(models.Model):
 class Perfiles(models.Model):
     id_perfil = models.AutoField(primary_key=True)
     id_user = models.ForeignKey(Cuentas, db_column='id_user')
-    perfil = models.CharField(max_length=15)
+    perfil = models.CharField(max_length=15, null=True)
 
     class Meta:
         db_table = 'perfiles'

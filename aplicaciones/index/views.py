@@ -160,6 +160,7 @@ class ContrasenaView(base.View):
         return render_to_response("index/contrasena.html", {"mensaje": "Se ah enviado un mensaje al correo suministado"},
                                   context_instance=RequestContext(request))
 
+
 class AdmonView(base.View):
 
     def get(self, request, *args, **kwargs):
@@ -169,7 +170,29 @@ class AdmonView(base.View):
         :param kwargs:
         :return: retorna un html de la pagina principal
         """
-        return render_to_response("index/admon.html", {"mensaje": ""}, context_instance=RequestContext(request))
+        if request.user.is_authenticated():
+            usuarios = Cuentas.objects.exclude(pk=request.user.id).exclude(pk__in = Perfiles.objects.all().values('id_user'))
+            return render_to_response("index/admon.html", {"mensaje": "", "usuarios": usuarios}, context_instance=RequestContext(request))
+        else:
+            return HttpResponseRedirect("/")
+
+    def post(self, request, *args, **kwargs):
+        """
+
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        usuario = Cuentas.objects.get(pk=request.POST['id_user'])
+        if request.POST['aceptacion'] == "aprobado":
+            usuario.deleted = False
+        elif request.POST['aceptacion'] == "rechazado":
+            usuario.deleted = True
+        perfil = request.POST['perfil']
+        nuevoPerfil= Perfiles.objects.get_or_create(id_user=usuario, perfil=perfil)[0]
+        nuevoPerfil.save()
+        return HttpResponse("success")
 
 
 class EmpresaView(base.View):
@@ -204,20 +227,16 @@ class UsuarioView(base.View):
         """
         datos = request.POST
         print datos
-        if datos['empresa']:
-            return  HttpResponseRedirect('/empresa')
-        elif datos['ciudadano']:
-            return  HttpResponseRedirect('/ciudadano')
-        elif datos['funcionario']:
-            return  HttpResponseRedirect('/empresa')
-        elif datos['admon']:
-            return  HttpResponseRedirect('/admon')
+        if datos['modulo'] == 'empresa':
+            return HttpResponseRedirect('/empresa')
+        elif datos['modulo'] =='ciudadano':
+            return HttpResponseRedirect('/ciudadano')
+        elif datos['modulo'] =='funcionario':
+            return HttpResponseRedirect('/empresa')
+        elif datos['modulo'] == 'admon':
+            return HttpResponseRedirect('/admon')
         else:
             return HttpResponseRedirect('/')
-
-
-
-
 
 
 class RecuperarView(base.View):

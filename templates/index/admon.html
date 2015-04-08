@@ -7,7 +7,7 @@
     <title>BolsaDeEmpleo</title>
     <link href="/static/css/admon.css" rel="stylesheet">
     <link href="/static/css/index.css" rel="stylesheet">
-     <link href="/static/css/empresa.css" rel="stylesheet">
+    <link href="/static/css/empresa.css" rel="stylesheet">
 </head>
 
 <body class="body" background="/static/fondo1.jpg">
@@ -28,168 +28,55 @@
         <br>
 
     </table1>
-    <div class="datagrid"><table>
-        <thead><tr><th>Identificación</th><th>Estado</th><th>Asignar Rol</th><th>Seleccionar</th></tr></thead>
-        <tfoot><tr><td colspan="4"><div id="paging"><ul><li><a href="#"><span>Atrás</span></a></li><li><a href="#" class="active"><span>1</span></a></li><li><a href="#"><span>2</span></a></li><li><a href="#"><span>3</span></a></li><li><a href="#"><span>4</span></a></li><li><a href="#"><span>5</span></a></li><li><a href="#"><span>Siguiente</span></a></li></ul></div></tr></tfoot>
-        <tbody>
-        <tr><td><a href="/empresa.html">ID</a></td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="aprobado">Aprobado</option>
-                        <option value="rechazado">Rechazado</option>
-                    </select>
-                </label2>
-            </td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="ciudadano">Ciudadano</option>
-                        <option value="funcionario">Funcionario</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="admon">Administrador</option>
-                    </select>
-                </label2>
+    <div class="datagrid">
+        {%  comment %}
+        por el momento se va a prer el estilo o la parte visual de las filas intermedia pintadas de otros color debido a que no tendran la clase alt
+        {% endcomment %}
+        <table>
+            <thead><tr><th>Identificación</th><th>Estado</th><th>Asignar Rol</th><th>Actualizar</th></tr></thead>
+            <tfoot><tr><td colspan="4"><div id="paging"><ul><li><a href="#"><span>Atrás</span></a></li><li><a href="#" class="active"><span>1</span></a></li><li><a href="#"><span>2</span></a></li><li><a href="#"><span>3</span></a></li><li><a href="#"><span>4</span></a></li><li><a href="#"><span>5</span></a></li><li><a href="#"><span>Siguiente</span></a></li></ul></div></tr></tfoot>
+            <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <form action="/admon/" method="post">
+                        {%  csrf_token %}
+                        <input type="hidden" name="id_user" value="{{ usuario.id_user }}">
+                        <td><a>{{ usuario.nombreusuario }}</a></td>
+                        <td>
+                            <label2>
+                                <select name="aceptacion">
+                                    <option value="" selected>  </option>
+                                    <option value="aprobado">Aprobado</option>
+                                    <option value="rechazado">Rechazado</option>
+                                </select>
+                            </label2>
+                        </td>
+                        <td>
+                            <label2>
+                                <select name="perfil">
+                                    <option  value="" selected>  </option>
+                                    <option value="ciudadano">Ciudadano</option>
+                                    <option value="funcionario">Funcionario</option>
+                                    <option value="empresa">Empresa</option>
+                                </select>
+                            </label2>
 
-            </td>
-            <td>
-                <form>
-                    <input type="checkbox" name="seleccionar" value="seleccionar">
-
-                </form>
-
-            </td>
-        </tr>
-        <tr class="alt"><td></td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="aprobado">Aprobado</option>
-                        <option value="rechazado">Rechazado</option>
-                    </select>
-                </label2>
-            </td>
+                        </td>
+                        <td>
+                            <input type="submit" value="Actualizar">
 
 
-
-       <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="ciudadano">Ciudadano</option>
-                        <option value="funcionario">Funcionario</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="admon">Administrador</option>
-                    </select>
-                </label2>
-
-       </td>
-            <td>
-                <form>
-                    <input type="checkbox" name="seleccionar" value="seleccionar">
-
-                </form>
-
-            </td>
-        </tr>
-        <tr><td></td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="aprobado">Aprobado</option>
-                        <option value="rechazado">Rechazado</option>
-                    </select>
-                </label2>
-            </td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="ciudadano">Ciudadano</option>
-                        <option value="funcionario">Funcionario</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="admon">Administrador</option>
-                    </select>
-                </label2>
-
-            </td>
-            <td>
-                <form>
-                    <input type="checkbox" name="seleccionar" value="seleccionar">
-
-                </form>
-
-            </td>
-        </tr>
-        <tr class="alt"><td></td>
-         <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="aprobado">Aprobado</option>
-                        <option value="rechazado">Rechazado</option>
-                    </select>
-                </label2>
-            </td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="ciudadano">Ciudadano</option>
-                        <option value="funcionario">Funcionario</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="admon">Administrador</option>
-                    </select>
-                </label2>
-
-            </td>
-            <td>
-                <form>
-                    <input type="checkbox" name="seleccionar" value="seleccionar">
-
-                </form>
-
-            </td>
-        </tr>
-        <tr><td></td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="aprobado">Aprobado</option>
-                        <option value="rechazado">Rechazado</option>
-                    </select>
-                </label2>
-            </td>
-            <td>
-                <label2>
-                    <select>
-                        <option selected>  </option>
-                        <option value="ciudadano">Ciudadano</option>
-                        <option value="funcionario">Funcionario</option>
-                        <option value="empresa">Empresa</option>
-                        <option value="admon">Administrador</option>
-                    </select>
-                </label2>
-
-            </td>
-            <td>
-                <form>
-                    <input type="checkbox" name="seleccionar" value="seleccionar">
-
-                </form>
-
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                        </td>
+                    </form>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
     </div>
     <div class="button">
+        {% comment %}
         <input type="submit"  value="Eliminar cuenta" />
+        {% endcomment %}
     </div>
 </div>
 </body>
