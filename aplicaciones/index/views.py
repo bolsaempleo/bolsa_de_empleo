@@ -157,7 +157,7 @@ class ContrasenaView(base.View):
                                          [a['username']])
         mensaje.attach_alternative(contenido, "text/html")
         mensaje.send()
-        return render_to_response("index/contrasena.html", {"mensaje": "Se ah enviado un mensaje al correo suministado"},
+        return render_to_response("index/contrasena.html", {"mensaje": "Se ha enviado un mensaje al correo suministado"},
                                   context_instance=RequestContext(request))
 
 
@@ -205,6 +205,50 @@ class EmpresaView(base.View):
         :return: retorna un html de la pagina principal
         """
         return render_to_response("index/empresa.html", {"mensaje": ""},context_instance=RequestContext(request))
+
+
+class EmpresaDatosView(base.View):
+
+    def post(self, request, *arg, **kwargs):
+        """
+        :param request:
+        :param args:
+        :param kwargs:
+        :return: retorna un html de la pagina principal
+        """
+        mensaje = ""
+        if request.user.is_authenticated():
+            datos = request.POST
+            infoEmpresa = Infoempresa()
+            Infoempresa.objects.get_or_create(id_user=request.user)
+
+            infoEmpresa.numeroidentificacion = request.POST['numerodeidentificacion']
+            infoEmpresa.razonsocial = request.POST['razonsocial']
+            infoEmpresa.nrotrabajadores = request.POST['nrotrabajadores']
+            infoEmpresa.representantelegal = request.POST['representantelegal']
+            infoEmpresa.e_mailrepresentlegal = request.POST['e_mailrepresentanlegal']
+            infoEmpresa.tipoempresa = request.POST['tipoempresa']
+            infoEmpresa.naturaleza = request.POST['naturaleza']
+            infoEmpresa.jerarquia = request.POST['jerarquia']
+            infoEmpresa.actividadeconomica = request.POST['actividadeconomica']
+            infoEmpresa.pais = request.POST['pais']
+            infoEmpresa.departamento = request.POST['departamento']
+            infoEmpresa.municipio = request.POST['municipio']
+            infoEmpresa.barrio = request.POST['barrio']
+            infoEmpresa.direccion = request.POST['direccion']
+            infoEmpresa.indicativotelefonico = request.POST['indicativotelefonico']
+            infoEmpresa.telefono = request.POST['telefono']
+            infoEmpresa.extension = request.POST['extension']
+            infoEmpresa.celular = request.POST['celular']
+            infoEmpresa.paginaweb = request.POST['paginaweb']
+
+            print(request.id_user)
+            infoEmpresa.save()
+            return render_to_response("index/empresa.html", {"mensaje": mensaje}, context_instance=RequestContext(request))
+        else:
+            return HttpResponse("Tiene que estar logueado")
+
+
 
 
 class UsuarioView(base.View):
@@ -279,5 +323,5 @@ class RecuperarView(base.View):
                                              [login_element.email])
             mensaje.attach_alternative(contenido, "text/html")
             mensaje.send()
-            mensaje = "Se ha cambiado laa clave con exito"
+            mensaje = "Se ha cambiado la clave con exito"
         return render_to_response("index/recuperar.html", {"mensaje": mensaje, "error": error}, context_instance=RequestContext(request))

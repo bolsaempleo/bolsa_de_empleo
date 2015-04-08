@@ -1860,25 +1860,25 @@
     </table>
     <table name="infoempresa" schema="public" catalog="bolsa_de_empleo" type="TABLE">
       <column name="id_user" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnaW5mb2VtcHJlc2FfaWRfdXNlcl9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
-      <column name="numeroidentificacion" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="razonsocial" sqlType="varchar" precision="160" scale="0" nullable="false" jdbcType="12"/>
-      <column name="nrotrabajadores" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="representantelegal" sqlType="varchar" precision="160" scale="0" nullable="false" jdbcType="12"/>
-      <column name="e_mailrepresentlegal" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="tipoempresa" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="naturaleza" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="jerarquia" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="actividadeconomica" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="pais" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="departamento" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="municipio" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="barrio" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="direccion" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
-      <column name="indicativotelefonico" sqlType="varchar" precision="5" scale="0" nullable="false" jdbcType="12"/>
-      <column name="telefono" sqlType="varchar" precision="10" scale="0" nullable="false" jdbcType="12"/>
-      <column name="extension" sqlType="varchar" precision="5" scale="0" nullable="false" jdbcType="12"/>
-      <column name="celular" sqlType="varchar" precision="15" scale="0" nullable="false" jdbcType="12"/>
-      <column name="paginaweb" sqlType="varchar" precision="80" scale="0" nullable="false" jdbcType="12"/>
+      <column name="numeroidentificacion" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="razonsocial" sqlType="varchar" precision="160" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nrotrabajadores" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="representantelegal" sqlType="varchar" precision="160" scale="0" nullable="true" jdbcType="12"/>
+      <column name="e_mailrepresentlegal" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tipoempresa" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="naturaleza" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="jerarquia" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="actividadeconomica" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pais" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="departamento" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="municipio" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="barrio" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="direccion" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="indicativotelefonico" sqlType="varchar" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="telefono" sqlType="varchar" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="extension" sqlType="varchar" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="celular" sqlType="varchar" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="paginaweb" sqlType="varchar" precision="80" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="infoempresa_pkey" columns="id_user"/>
       <foreign-key name="infoempresa_id_user_fkey" columns="id_user" ref-table="cuentas" ref-schema="public" ref-catalog="" ref-columns="id_user" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="funcionario_id_empresa_fkey" table="funcionario" schema="public" catalog="bolsa_de_empleo" columns="id_empresa"/>
