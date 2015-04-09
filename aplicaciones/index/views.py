@@ -108,7 +108,6 @@ class RegistroView(base.View):
         :return:
         """
         datos = request.POST
-        print datos
         cuenta = Cuentas(nombreusuario=datos['documento'], contrase_a =datos['password'],
                          e_mail=datos['correo_electronico'], fechanacimiento= datos['fecha_nacimiento'],
                          nombreyapellido=datos['nombre_completo'], estado="en espera")
@@ -118,6 +117,9 @@ class RegistroView(base.View):
         login.id_user =cuenta
         login.email = datos['correo_electronico']
         login.save()
+        if Perfiles.objects.all().count() == 0:
+            administrador = Perfiles(id_user = cuenta, perfil = "administrador")
+            administrador.save()
         return render_to_response("index/registrar.html",
                                   {"mensaje": "se ha creado  la cuenta correctamente, porfavor espere a que sea aceptada"},
                                   context_instance=RequestContext(request))
@@ -171,8 +173,19 @@ class AdmonView(base.View):
         :return: retorna un html de la pagina principal
         """
         if request.user.is_authenticated():
-            usuarios = Cuentas.objects.exclude(pk=request.user.id).exclude(pk__in = Perfiles.objects.all().values('id_user'))
-            return render_to_response("index/admon.html", {"mensaje": "", "usuarios": usuarios}, context_instance=RequestContext(request))
+            login_element = Login.objects.get(id=request.user.id)
+            cuenta = login_element.id_user
+            perfiles  = cuenta.perfiles_set.all()
+            es_administrador = False
+            for perfil in perfiles:
+                if perfil.perfil == "administrador":
+                    es_administrador = True
+                    break
+            if es_administrador:
+                usuarios = Cuentas.objects.exclude(pk=request.user.id).exclude(pk__in = Perfiles.objects.all().values('id_user'))
+                return render_to_response("index/admon.html", {"mensaje": "", "usuarios": usuarios}, context_instance=RequestContext(request))
+            else:
+                return HttpResponseRedirect("/")
         else:
             return HttpResponseRedirect("/")
 
@@ -204,7 +217,22 @@ class EmpresaView(base.View):
         :param kwargs:
         :return: retorna un html de la pagina principal
         """
-        return render_to_response("index/empresa.html", {"mensaje": ""},context_instance=RequestContext(request))
+        if request.user.is_authenticated():
+            login_element = Login.objects.get(id=request.user.id)
+            cuenta = login_element.id_user
+            perfiles  = cuenta.perfiles_set.all()
+            es_empresa = False
+            for perfil in perfiles:
+                if perfil.perfil == "empresa":
+                    es_empresa = True
+                    break
+            if es_empresa:
+                infoEmpresa = Infoempresa.objects.get_or_create(pk = cuenta.id_user)[0]
+                return render_to_response("index/empresa.html", {"mensaje": "", 'infoEmpresa': infoEmpresa}, context_instance=RequestContext(request))
+            else:
+                return HttpResponseRedirect("/usuario")
+        else:
+            return HttpResponseRedirect("/usuario")
 
 
 class EmpresaDatosView(base.View):
@@ -219,9 +247,9 @@ class EmpresaDatosView(base.View):
         mensaje = ""
         if request.user.is_authenticated():
             datos = request.POST
-            infoEmpresa = Infoempresa()
-            Infoempresa.objects.get_or_create(id_user=request.user)
-
+            login_element = Login.objects.get(id = request.user.id)
+            cuenta = login_element.id_user
+            infoEmpresa = Infoempresa.objects.get_or_create(pk = cuenta.id_user)[0]
             infoEmpresa.numeroidentificacion = request.POST['numerodeidentificacion']
             infoEmpresa.razonsocial = request.POST['razonsocial']
             infoEmpresa.nrotrabajadores = request.POST['nrotrabajadores']
@@ -242,7 +270,6 @@ class EmpresaDatosView(base.View):
             infoEmpresa.celular = request.POST['celular']
             infoEmpresa.paginaweb = request.POST['paginaweb']
 
-            print(request.id_user)
             infoEmpresa.save()
             return render_to_response("index/empresa.html", {"mensaje": mensaje}, context_instance=RequestContext(request))
         else:

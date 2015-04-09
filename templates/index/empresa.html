@@ -482,28 +482,28 @@
                                             <div>
                                                 <p align="left" for="name">Número de identificación</p>
                                                 <br>
-                                                <input type="text" name="numerodeidentificacion" placeholder="" required="" id="username" />
+                                                <input type="text" name="numerodeidentificacion" placeholder="" required="" id="username" value="{{ infoEmpresa.numeroidentificacion }}"/>
                                                 <br>
                                                 <p align="left" for="name">Razón Social</p>
                                                 <br>
-                                                <input type="text" name="razonsocial" placeholder="" required="" id="username" />
+                                                <input type="text" name="razonsocial" placeholder="" required="" id="username" value="{{ infoEmpresa.razonsocial }}" />
                                                 <br>
                                                 <p align="left" for="name">Número de Trabajadores</p>
                                                 <br>
-                                                <input type="text" name="nrotrabajadores" placeholder="" required="" id="username" />
+                                                <input type="text" name="nrotrabajadores" placeholder="" required="" id="username" value="{{ infoEmpresa.nrotrabajadores }}"/>
                                                 <br>
                                                 <p align="left" for="name">Representante Legal</p>
                                                 <br>
-                                                <input type="text" name="representantelegal" placeholder="" required="" id="username" />
+                                                <input type="text" name="representantelegal" placeholder="" required="" id="username" value="{{ infoEmpresa.representantelegal }}"/>
                                                 <br>
                                                 <p align="left" for="name">Correo Electrónico Representante Legal</p>
                                                 <br>
-                                                <input type="email" name="e_mailrepresentanlegal" placeholder="" required="" id="username" />
+                                                <input type="email" name="e_mailrepresentanlegal" placeholder="" required="" id="username" value="{{ infoEmpresa.e_mailrepresentlegal }}"/>
                                                 <br>
                                                 <p align="left" for="name">Tipo de empresa</p>
                                                 <br>
                                                 <label2>
-                                                    <select name="tipoempresa">
+                                                    <select name="tipoempresa" value="{{infoEmpresa.tipoempresa }}">
                                                         <option selected>  </option>
                                                         <option value="limitada">Limitada</option>
                                                         <option value="anonima">Anónima</option>
@@ -548,12 +548,12 @@
                                                 <br>
                                                 <p align="left" for="name">Actividad Económica</p>
                                                 <br>
-                                                <input type="text" name="actividadeconomica" placeholder="" required="" id="username" />
+                                                <input type="text" name="actividadeconomica" placeholder="" required="" id="username" value="{{ infoEmpresa.actividadeconomica }}" />
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Código CIUU</p>
                                                 <br>
-                                                <input type="text" placeholder="" required="" id="username" />
+                                                <input type="text" placeholder="" required="" id="username"  />
                                                 <br>
                                                 <br>
                                                 <div>
@@ -561,45 +561,45 @@
                                                 </div>
                                                 <br>
                                                 <p align="left" for="name">País</p>
-                                                <input type="text" name="pais" placeholder="" required="" id="username" />
+                                                <input type="text" name="pais" placeholder="" required="" id="username" value="{{ infoEmpresa.pais }}"/>
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Departamento</p>
-                                                <input type="text" name="departamento" placeholder="" required="" id="username" />
+                                                <input type="text" name="departamento" placeholder="" required="" id="username" value="{{ infoEmpresa.departamento }}" />
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Municipio</p>
-                                                <input type="text" name="municipio" placeholder="" required="" id="username" />
+                                                <input type="text" name="municipio" placeholder="" required="" id="username" value="{{ infoEmpresa.municipio }}" />
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Barrio</p>
-                                                <input type="text" name="barrio" placeholder="" required="" id="username" />
+                                                <input type="text" name="barrio" placeholder="" required="" id="username" value="{{ infoEmpresa.Barrio }}"/>
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Teléfono</p>
                                                 <div>
-                                                    <input type="text" style="width: 35px" name="indicativotelefonico" placeholder="ind." required="" id="username" />
-                                                    <input type="text" style="width: 35px" name="extension" placeholder="ext." required="" id="username" />
-                                                    <input type="text"  style="width: 60px" name="telefono" placeholder="numero" required="" id="username" />
+                                                    <input type="text" style="width: 35px" name="indicativotelefonico" placeholder="ind." required="" id="username" value="{{ infoEmpresa.indicativotelefonico }}" />
+                                                    <input type="text" style="width: 35px" name="extension" placeholder="ext." required="" id="username" value="{{ infoEmpresa.extension }}" />
+                                                    <input type="text"  style="width: 60px" name="telefono" placeholder="numero" required="" id="username" value="{{ infoEmpresa.telefono }}"/>
                                                 </div>
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Celular</p>
                                                 <br>
                                                 <div>
-                                                    <input style="width: 70px" type="text" placeholder="ind." required="" name="celularIndicativo" id="username" />
-                                                    <input style="width: 120px" type="text" placeholder="celular" required="" name="celular" id="username" />
+                                                    <input style="width: 70px" type="text" placeholder="ind." required="" name="celularIndicativo" id="username"  />
+                                                    <input style="width: 120px" type="text" placeholder="celular" required="" name="celular" id="username" value="{{ infoEmpresa.celular }}"/>
                                                 </div>
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Página Web</p>
                                                 <br>
-                                                <input type="text" name="paginaweb" placeholder="" required="" id="username" />
+                                                <input type="text" name="paginaweb" placeholder="" required="" id="username" value="{{ infoEmpresa.paginaweb }}"/>
                                                 <br>
                                                 <br>
                                                 <p align="left" for="name">Dirección</p>
                                                 <br>
-                                                <input type="text" name="direccion" placeholder="" required="" id="username" />
+                                                <input type="text" name="direccion" placeholder="" required="" id="username" value="{{ infoEmpresa.direccion }}"/>
                                                 <br>
                                                 <form action="">
                                                     <h1>Recursos Humanos</h1>
